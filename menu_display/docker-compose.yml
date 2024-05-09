@@ -3,10 +3,9 @@ version: '3'
 services:
   menu_display:
     build:
-      context: ./menu_display
+      context: .
       dockerfile: Dockerfile
     ports:
-      - "8001:8000"
-    volumes:
-      - ./menu_display:/app
+      - "8000:8000"
+      
     command: sh -c "uvicorn main:app --reload --host 0.0.0.0 --log-level trace"

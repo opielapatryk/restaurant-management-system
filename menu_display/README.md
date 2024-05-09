@@ -18,13 +18,3 @@ GET{id}: Get certain dish <br>
 ### Modules:
 Menu <br>
 With embedded Dishes <br>
-
-## Useful commands:
-### Testing 
-- pytest <br>
-
-### Build, run, stop
-- uvicorn main:app<br>
-- docker-compose up<br>
-- docker-compose up --build<br>
-- docker-compose down
