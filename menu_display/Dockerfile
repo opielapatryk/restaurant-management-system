@@ -1,14 +1,14 @@
 FROM python:3
 
-WORKDIR /app
+ENV PYTHONUNBUFFERED 1
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONBUFFERED 1
+# Set working directory
+RUN mkdir /opt/code
+WORKDIR /opt/code
 
-COPY requirements.txt /app/
+# Copy requirements and install
+COPY requirements.txt /opt/requirements.txt
+RUN pip install -r /opt/requirements.txt
 
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . /app/
-
-EXPOSE 8000
+# Copy the rest of the application code
+COPY . /opt/code
