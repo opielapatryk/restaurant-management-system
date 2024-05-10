@@ -3,7 +3,7 @@ import pymongo
 class MongoRepo:
     def __init__(self):
         client = pymongo.MongoClient(
-            host='localhost',
+            host='db',
             port=27017,
             username='root',
             password='mongodb',
