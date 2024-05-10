@@ -1,4 +1,4 @@
-# restaurant-management-system
+# Restaurant Management System
 
 ## Goals and scope of project:
 This system will be created using microservices, <br>
