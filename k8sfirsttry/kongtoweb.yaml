@@ -1,0 +1,11 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: menuu
+  namespace: default
+spec:
+  destination:
+    name: menuu
+  sources:
+    - name: external-kong-proxy
+      action: allow

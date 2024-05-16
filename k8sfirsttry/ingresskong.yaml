@@ -1,19 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: menu
+  name: menuu
   annotations:
     kubernetes.io/ingress.class: kong
-    konghq.com/plugins: rate-limit
-    konghq.com/preserve-host: "false"
+    konghq.com/strip-path: "true"
 spec:
   rules:
     - http:
         paths:
-          - path: /
+          - path: /menuu
             pathType: Prefix
             backend:
               service:
-                name: menu
+                name: menuu
                 port:
-                  number: 80
+                  number: 1027

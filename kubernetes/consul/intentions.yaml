@@ -1,12 +1,12 @@
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
-  name: ui-to-web
+  name: kong-to-ui
 spec:
   destination:
-    name: web
+    name: ui
   sources:
-    - name: ui
+    - name: external-kong-proxy
       permissions:
         - action: allow
           http:
@@ -14,5 +14,5 @@ spec:
             methods: ["GET"]
         - action: allow
           http:
-            pathExact: /favicon.ico
+            pathPrefix: /ui
             methods: ["GET"]

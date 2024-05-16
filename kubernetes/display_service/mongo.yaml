@@ -3,7 +3,7 @@ kind: ServiceDefaults
 metadata:
   name: mongodb
 spec:
-  protocol: http
+  protocol: tcp
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -28,6 +28,7 @@ spec:
       annotations:
         consul.hashicorp.com/connect-inject: "true"
     spec:
+      serviceAccountName: mongodb
       containers:
       - name: mongodb
         image: mongo
@@ -48,7 +49,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb-service
+  name: mongodb
 spec:
   selector:
     app: mongodb
