@@ -9,11 +9,7 @@ def welcome():
     return {"message": "Welcome to the Restaurant API!", "endpoints": {"menu": "api/v1/menu"}}
 
 @app.get("/api/v1/menu")
-def menu_list(name:str=None):
+def menu_list():
     repo = MongoRepo()
     result = menu_list_use_case(repo)
-
-    if name:
-        result = filter(lambda m: m['name'] == name, result)
-    
     return result

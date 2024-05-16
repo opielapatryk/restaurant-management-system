@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-v2
+  labels:
+    app: web
+    release: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+      release: v2
+  template:
+    metadata:
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
+        consul.hashicorp.com/service-meta-version: v2
+      labels:
+        app: web
+        release: v2
+    spec:
+      serviceAccountName: web
+      containers:
+        - name: web
+          image: "nicholasjackson/fake-service:v0.19.1"
+          ports:
+            - containerPort: 9090
+          env:
+            - name: NAME
+              value: "Web (v2)"
+            - name: MESSAGE
+              value: "Web (v2)"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 9090
+            initialDelaySeconds: 3
+            periodSeconds: 3

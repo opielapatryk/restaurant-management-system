@@ -4,7 +4,7 @@ metadata:
   name: web
 spec:
   splits:
-    - weight: 100
+    - weight: 50
       serviceSubset: v1
     - weight: 50
       serviceSubset: v2

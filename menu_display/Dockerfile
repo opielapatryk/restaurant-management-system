@@ -1,9 +1,14 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
+FROM python:3
 
-WORKDIR /code
+ENV PYTHONUNBUFFERED 1
 
-COPY . /code
+# Set working directory
+RUN mkdir /opt/code
+WORKDIR /opt/code
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+# Copy requirements and install
+COPY requirements.txt /opt/requirements.txt
+RUN pip install -r /opt/requirements.txt
 
-CMD ["fastapi", "run", "main.py", "--port", "1027"]
+# Copy the rest of the application code
+COPY . /opt/code

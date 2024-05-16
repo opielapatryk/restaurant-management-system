@@ -1,12 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: menu
+  name: ui
   annotations:
-    kubernetes.io/ingress.class: kong
     konghq.com/plugins: rate-limit
     konghq.com/preserve-host: "false"
 spec:
+  ingressClassName: kong
   rules:
     - http:
         paths:
@@ -14,6 +14,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: menu
+                name: ui
                 port:
                   number: 80

@@ -9,10 +9,10 @@ spec:
   rules:
     - http:
         paths:
-          - path: /menuu
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: menuu
+                name: menu
                 port:
                   number: 1027
