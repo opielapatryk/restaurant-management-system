@@ -2,12 +2,7 @@ import pymongo
 
 class MongoRepo:
     def __init__(self):
-        client = pymongo.MongoClient(
-            host='db',
-            port=27017,
-            username='root',
-            password='mongodb',
-        )
+        client = pymongo.MongoClient("mongodb://root:mongodb@localhost:27017")
 
         self.db = client['menu_display']
 

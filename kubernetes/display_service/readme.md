@@ -1,9 +1,0 @@
-# Create own mongo-secret.yaml
-apiVersion: v1
-kind: Secret
-metadata:
-    name: mongodb-secret
-type: Opaque
-data: 
-    mongo-root-username: .
-    mongo-root-password: .
