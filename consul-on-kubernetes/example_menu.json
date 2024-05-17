@@ -1,0 +1,15 @@
+{
+    "name":"Polish Jadło!",
+    "description":"Menu where you can find lot of polish classics from kotlet schabowy to zurek",
+    "dishes":[
+      {
+        "id":1,"name":"Schabowy","description":"Kotlet schabowy z ziemniakami i surówka","availabilityQty":5,"price":9.99,"category":"Lunch","ingredients":["chicken","eggs","butter","potatos","cabbage"],"active":true,"image":"image","dietaryrestrictions":null
+      },
+          {
+        "id":2, "name":"Pierogi", "description":"Gotowane pierogi ruskie z serem i pieczarkami podane ze śmietaną", "availabilityQty":4, "price":7.50, "category":"Lunch", "ingredients":["wheat flour", "ricotta cheese", "potatoes", "mushrooms", "onions", "sour cream"], "active":true, "image":"image", "dietaryrestrictions":null
+      },
+          {
+        "id":3, "name":"Zupa Żurek", "description":"Żurek na żurku z białą kiełbasą i chlebem", "availabilityQty":10, "price":6.99, "category":"Lunch", "ingredients":["sour rye flour","vegetables", "white sausage", "bread", "eggs"], "active":true, "image":"image", "dietaryrestrictions":null
+      }
+      ]
+  }

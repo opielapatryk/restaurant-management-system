@@ -1,7 +1,0 @@
-ingressController:
-  serviceAccount:
-    name: external-kong-proxy
- 
-podAnnotations:
-  consul.hashicorp.com/connect-inject: "true"
-  consul.hashicorp.com/transparent-proxy-exclude-inbound-ports: 8000,8443

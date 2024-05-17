@@ -1,0 +1,25 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: menuu
+ namespace: default
+# Allow traffic from nginx to menuu
+spec:
+ destination:
+   name: menuu
+ sources:
+   - name: nginx
+     action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: mongodb
+ namespace: default
+# Allow traffic from menuu to mongodb
+spec:
+ destination:
+   name: mongodb
+ sources:
+   - name: menuu
+     action: allow
