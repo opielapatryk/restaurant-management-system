@@ -1,11 +1,20 @@
 # Deploy services using ./install.sh 
 run: <br> 
 chmod +x install.sh <br>
-./install.sh <br>
+./install.sh <br><br>
+
+kubectl port-forward svc/mongodb 27017:27017<br>
+Connect with mongodb using: mongodb://root:mongodb@localhost:27017/<br>
+Create db "menu_display" and collection "menu"<br>
+Insert example document from ./example_menu.json<br>
+kubectl get svc api-gateway<br>
+Connect with apigateway using NodePort: https  xxxxx/TCP<br>
+https://127.0.0.1:xxxxx/<br>
 
 # To install monitoring tools use: 
 chmod +x install-observability-suite.sh<br>
 ./install-observability-suite.sh<br>
+
 
 # Or do everything manually
 helm repo add hashicorp https://helm.releases.hashicorp.com<br>
@@ -38,5 +47,5 @@ Create db "menu_display" and collection "menu"<br>
 Insert example document from ./example_menu.json<br>
 kubectl get svc api-gateway<br>
 Connect with apigateway using NodePort: https  xxxxx/TCP<br>
-https://127.0.0.1:xxxxx/api/v1/menu<br>
+https://127.0.0.1:xxxxx/<br>
 
