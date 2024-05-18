@@ -11,14 +11,15 @@ consul members<br>
 consul-server-0<br>
 <br>
 kubectl apply -f proxy-defaults.yaml<br>
-kubectl apply -f nginx.yaml<br>
+<!-- kubectl apply -f nginx.yaml<br> -->
+<!-- no need for nginx -->
 kubectl apply -f mongodb.yaml<br>
 kubectl apply -f menu.yaml<br>
 kubectl apply -f allow.yaml<br>
 <br>
 kubectl apply -f consul-api-gateway.yaml<br>
 kubectl apply -f routes.yaml<br>
-kubectl apply -f intentions.yaml<br>
+<!-- kubectl apply -f intentions.yaml<br> -->
 kubectl apply -f referencegrant.yaml<br> 
 kubectl apply -f rbac.yaml<br>  
 <br>

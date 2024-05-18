@@ -17,6 +17,6 @@ spec:
    # Defines the backend service.
    backendRefs:
    - kind: Service
-     name: nginx
+     name: menu
      namespace: default
-     port: 80
+     port: 1027
