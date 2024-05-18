@@ -1,4 +1,13 @@
-# K8s deployment 
+# Deploy services using ./install.sh 
+run: <br> 
+chmod +x install.sh <br>
+./install.sh <br>
+
+# To install monitoring tools use: 
+chmod +x install-observability-suite.sh<br>
+./install-observability-suite.sh<br>
+
+# Or do everything manually
 helm repo add hashicorp https://helm.releases.hashicorp.com<br>
 helm install --values values-v1.yaml consul hashicorp/consul --version "1.2.0"<br>
 export CONSUL_HTTP_TOKEN=$(kubectl get secrets/consul-bootstrap-acl-token --template={{.data.token}} | base64 -d)<br>       
@@ -31,6 +40,3 @@ kubectl get svc api-gateway<br>
 Connect with apigateway using NodePort: https  xxxxx/TCP<br>
 https://127.0.0.1:xxxxx/api/v1/menu<br>
 
-# To install monitoring tools use: 
-chmod +x install-observability-suite.sh<br>
-./install-observability-suite.sh<br>
