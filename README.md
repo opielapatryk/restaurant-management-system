@@ -23,4 +23,3 @@ Microservices: Fast API<br>
 For modeling system architecture I used technique called [c4model](https://c4model.com/)<br>
 ![Context Diagram](./context.png)
 ![Container Diagram](./container.png)
-![Component Diagram](./component.png)
