@@ -46,7 +46,7 @@ spec:
         service: menu
       annotations:
         consul.hashicorp.com/connect-inject: "true"
-        consul.hashicorp.com/connect-service-upstreams: "mongodb:27017"
+        consul.hashicorp.com/connect-service-upstreams: "mongodb:27017,cache-redis:6379"
     spec:
       serviceAccountName: menu
       containers:

@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cache-redis
+  namespace: default
+  labels:
+    app: cache-redis
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: cache-redis
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: cache-redis
+  namespace: default
+spec:
+  protocol: "tcp"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cache-redis
+  namespace: default
+automountServiceAccountToken: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cache-redis
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: cache-redis
+      app: cache-redis
+  template:
+    metadata:
+      labels:
+        service: cache-redis
+        app: cache-redis
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
+    spec:
+      serviceAccountName: cache-redis
+      containers:
+        - name: cache-redis
+          image: redis:alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: "/var/lib/redis/data"
+              name: "redis-data"
+      volumes:
+        - name: redis-data
+          emptyDir: {}

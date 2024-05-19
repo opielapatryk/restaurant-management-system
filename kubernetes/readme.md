@@ -31,6 +31,7 @@ consul-server-0<br>
 kubectl apply -f proxy-defaults.yaml<br>
 <!-- kubectl apply -f nginx.yaml<br> -->
 <!-- no need for nginx -->
+kubectl apply -f redis.yaml<br>
 kubectl apply -f mongodb.yaml<br>
 kubectl apply -f menu.yaml<br>
 kubectl apply -f allow.yaml<br>

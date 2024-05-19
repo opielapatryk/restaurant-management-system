@@ -22,3 +22,16 @@ spec:
  sources:
    - name: menu
      action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: cache-redis
+ namespace: default
+# Allow traffic from menuu to redis
+spec:
+ destination:
+   name: cache-redis
+ sources:
+   - name: menu
+     action: allow
