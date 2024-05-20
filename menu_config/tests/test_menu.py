@@ -1,7 +1,7 @@
 from unittest import mock
 from fastapi.testclient import TestClient
-from menu_display.main import app
-from menu_display.domain.menu.Menu import Menu
+from main import app
+from domain.menu.Menu import Menu
 
 menu_dict = {
   "id":1,
@@ -28,10 +28,23 @@ def test_list(mock_use_case):
     mock_use_case.return_value = menu
 
     client = TestClient(app)
-    response = client.get('/menu')
+    response = client.get('/api/v1/menu')
 
     response_data = response.json()
     assert response_data == menu_dict
     mock_use_case.assert_called()
+    assert response.status_code == 200
+    assert response.headers["content-type"] == "application/json"
+
+@mock.patch('main.menu_get_use_case')
+def test_get(mock_use_case):
+    mock_use_case.return_value = menu
+
+    client = TestClient(app)
+    response = client.get('/api/v1/menu/1')
+
+    response_data = response.json()
+    assert response_data == menu_dict
+    
     assert response.status_code == 200
     assert response.headers["content-type"] == "application/json"

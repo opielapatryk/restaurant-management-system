@@ -1,4 +1,4 @@
-from menu_display.domain.dish.Dish import Dish
+from domain.dish.Dish import Dish
 
 def test_dish_model_init():
     dish1 = Dish(1,"Schabowy","Kotlet schabowy z ziemniakami i surówka",5,9.99,"Lunch",["chicken","eggs","butter","potatos","cabbage"],True,"image",None)

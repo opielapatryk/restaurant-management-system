@@ -1,7 +1,8 @@
 import pytest
-from menu_display.domain.menu.Menu import Menu
-from menu_display.domain.dish.Dish import Dish
-from menu_display.use_cases.menu_list import menu_list_use_case
+from domain.menu.Menu import Menu
+from domain.dish.Dish import Dish
+from use_cases.menu_list import menu_list_use_case
+from use_cases.menu_get import menu_get_use_case
 from unittest import mock
 
 @pytest.fixture
@@ -22,4 +23,12 @@ def test_list_menu(domain_menu):
     result = menu_list_use_case(repo)
 
     repo.list.assert_called_with()
+    assert result == domain_menu
+
+def test_get_menu(domain_menu):
+    repo = mock.Mock()
+    repo.get.return_value = domain_menu
+
+    result = menu_get_use_case(repo, 1)
+
     assert result == domain_menu

@@ -32,7 +32,8 @@ def mg_test_data():
 		{
       "id":3, "name":"Zupa Żurek", "description":"Żurek na żurku z białą kiełbasą i chlebem", "availabilityQty":10, "price":6.99, "category":"Lunch", "ingredients":["sour rye flour","vegetables", "white sausage", "bread", "eggs"], "active":True, "image":"image", "dietaryrestrictions":None
     }
-	]
+	],
+    "active":True
 }
 
 

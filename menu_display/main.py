@@ -18,16 +18,13 @@ async def welcome():
     status_code=status.HTTP_200_OK,
     name="get_menu",
 )
-def get_menu(name:str=None,redis_client: cache = Depends(cache)):
+def get_menu(redis_client: cache = Depends(cache)):
     if (cached_menu := redis_client.get(f"menu_1")) is not None:
         return pickle.loads(cached_menu)
 
     try:
         repo = MongoRepo()
         menu = menu_list_use_case(repo)
-
-        if name:
-            menu = filter(lambda m: m['name'] == name, menu)
         
         redis_client.set(f"menu_1", pickle.dumps(menu))
 
