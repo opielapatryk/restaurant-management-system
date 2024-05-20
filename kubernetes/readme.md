@@ -3,10 +3,6 @@ run: <br>
 chmod +x install.sh <br>
 ./install.sh <br><br>
 
-kubectl port-forward svc/mongodb 27017:27017<br>
-Connect with mongodb using: mongodb://root:mongodb@localhost:27017/<br>
-Create db "menu_display" and collection "menu"<br>
-Insert example document from ./example_menu.json<br>
 kubectl get svc api-gateway<br>
 Connect with apigateway using NodePort: https  xxxxx/TCP<br>
 https://127.0.0.1:xxxxx/<br>
@@ -29,8 +25,6 @@ consul members<br>
 consul-server-0<br>
 <br>
 kubectl apply -f proxy-defaults.yaml<br>
-<!-- kubectl apply -f nginx.yaml<br> -->
-<!-- no need for nginx -->
 kubectl apply -f redis.yaml<br>
 kubectl apply -f mongodb.yaml<br>
 kubectl apply -f menu.yaml<br>
@@ -38,15 +32,9 @@ kubectl apply -f allow.yaml<br>
 <br>
 kubectl apply -f consul-api-gateway.yaml<br>
 kubectl apply -f routes.yaml<br>
-<!-- kubectl apply -f intentions.yaml<br> -->
 kubectl apply -f referencegrant.yaml<br> 
 kubectl apply -f rbac.yaml<br>  
 <br>
-kubectl port-forward svc/mongodb 27017:27017<br>
-Connect with mongodb using: mongodb://root:mongodb@localhost:27017/<br>
-Create db "menu_display" and collection "menu"<br>
-Insert example document from ./example_menu.json<br>
 kubectl get svc api-gateway<br>
 Connect with apigateway using NodePort: https  xxxxx/TCP<br>
 https://127.0.0.1:xxxxx/<br>
-
