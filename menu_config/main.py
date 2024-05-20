@@ -37,7 +37,6 @@ def get_menu_by_id(id):
     try:
         repo = MongoRepo()
         menu = menu_get_use_case(repo, id)
-
         return menu
 
     except EntityDoesNotExist:
