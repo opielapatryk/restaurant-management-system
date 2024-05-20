@@ -33,11 +33,15 @@ class MongoRepo:
         }
 
     def list(self):
-        result = self.collection.find_one()
-        menu = self._create_menu_object(result)
-        return menu
+        menus = self.collection.find()
+        result = [self._create_menu_object(menu) for menu in menus]
+        return result
     
     def get(self,id):
         result = self.collection.find_one(ObjectId(id))
         menu = self._create_menu_object(result)
         return menu
+    
+    def post(self,new_menu):
+        self.collection.insert_one(new_menu)
+        return self.list()

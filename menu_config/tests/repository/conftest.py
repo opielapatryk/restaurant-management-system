@@ -36,6 +36,24 @@ def mg_test_data():
   "active":True
 }
 
+@pytest.fixture(scope="function")
+def mg_test_post_data():
+    return {
+  "name":"Polish Jadło2!",
+  "description":"Menu where you can find lot of polish classics from kotlet schabowy to zurek",
+  "dishes":[
+    {
+      "id":1,"name":"Schabowy","description":"Kotlet schabowy z ziemniakami i surówka","availabilityQty":5,"price":9.99,"category":"Lunch","ingredients":["chicken","eggs","butter","potatos","cabbage"],"active":True,"image":"image","dietaryrestrictions":None
+    },
+		{
+      "id":2, "name":"Pierogi", "description":"Gotowane pierogi ruskie z serem i pieczarkami podane ze śmietaną", "availabilityQty":4, "price":7.50, "category":"Lunch", "ingredients":["wheat flour", "ricotta cheese", "potatoes", "mushrooms", "onions", "sour cream"], "active":True, "image":"image", "dietaryrestrictions":None
+    },
+		{
+      "id":3, "name":"Zupa Żurek", "description":"Żurek na żurku z białą kiełbasą i chlebem", "availabilityQty":10, "price":6.99, "category":"Lunch", "ingredients":["sour rye flour","vegetables", "white sausage", "bread", "eggs"], "active":True, "image":"image", "dietaryrestrictions":None
+    }
+	],
+  "active":True
+}
 
 @pytest.fixture(scope="function")
 def mg_database(mg_database_empty, mg_test_data):
