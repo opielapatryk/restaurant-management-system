@@ -27,6 +27,7 @@ class MongoRepo:
             "name": menu_data["name"],
             "description": menu_data["description"],
             "dishes": menu_data["dishes"],
+            "active": menu_data["active"]
         }
 
     def list(self):

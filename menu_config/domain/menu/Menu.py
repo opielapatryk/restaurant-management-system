@@ -6,6 +6,7 @@ class Menu:
     name: str
     description: str
     dishes: list
+    active: bool
     
     @classmethod
     def from_dict(self,d):

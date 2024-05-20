@@ -9,7 +9,7 @@ Repository: MongoDB <br>
 DB Interface <br>
 i.e. class MongoRepo <br>
 
-## Use Cases: "business logic"
+## Use Cases: 
 ### Receive repo + parameters, returns results
 GET: List whole menu <br>
 
