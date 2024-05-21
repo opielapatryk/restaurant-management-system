@@ -11,7 +11,7 @@ from bson.objectid import ObjectId
 
 class MongoRepo:
     def __init__(self, json_file_name='example_menu.json'):
-        client = pymongo.MongoClient("mongodb://root:mongodb@localhost:27017")
+        client = pymongo.MongoClient("mongodb://root:mongodb@localhost:27018")
 
         self.db = client['menu_display']
         self.collection = self.db.menu

@@ -6,7 +6,7 @@ import pytest
 def mg_database_empty():
     client = pymongo.MongoClient(
         host='localhost',
-        port=27017,
+        port=27018,
         username='root',
         password='mongodb',
     )

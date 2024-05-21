@@ -1,0 +1,68 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: menu-config-mongodb
+  namespace: default
+  labels:
+    app: menu-config-mongodb
+spec:
+  type: ClusterIP
+  ports:
+    - port: 27018
+      targetPort: 27018
+  selector:
+    app: menu-config-mongodb
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: menu-config-mongodb
+  namespace: default
+spec:
+  protocol: "tcp"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: menu-config-mongodb
+  namespace: default
+automountServiceAccountToken: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menu-config-mongodb
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: menu-config-mongodb
+      app: menu-config-mongodb
+  template:
+    metadata:
+      labels:
+        service: menu-config-mongodb
+        app: menu-config-mongodb
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
+    spec:
+      serviceAccountName: menu-config-mongodb
+      containers:
+        - name: menu-config-mongodb
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27018
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: root
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: mongodb
+          volumeMounts:
+            - mountPath: "/var/lib/menuconfigmongodb/data"
+              name: "menuconfigmongodata"
+      volumes:
+        - name: menuconfigmongodata
+          emptyDir: {}

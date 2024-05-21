@@ -1,0 +1,57 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: menuconfig
+  namespace: default
+spec:
+  protocol: "http"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: menuconfig
+  namespace: default
+automountServiceAccountToken: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: menuconfig
+  name: menuconfig
+spec:
+  type: ClusterIP
+  ports:
+    - port: 1028
+      targetPort: 1028
+  selector:
+    app: menuconfig
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menuconfig
+  namespace: default
+  labels:
+    app: menuconfig
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: menuconfig
+  template:
+    metadata:
+      labels:
+        app: menuconfig
+        service: menuconfig
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
+        consul.hashicorp.com/connect-service-upstreams: "menu-config-mongodb:27018"
+    spec:
+      serviceAccountName: menuconfig
+      containers:
+        - name: menuconfig
+          image: "opielapatryk/menu_config:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 1028

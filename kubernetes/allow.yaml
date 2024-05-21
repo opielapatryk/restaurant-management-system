@@ -1,7 +1,7 @@
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
-  name: api-gateway
+  name: api-gateway-menu
 # Allow traffic from api-gateway to menu
 spec:
   destination:
@@ -35,3 +35,28 @@ spec:
  sources:
    - name: menu
      action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: menu-config-mongodb
+ namespace: default
+# Allow traffic from menu-config to mongodb-config
+spec:
+ destination:
+   name: menu-config-mongodb
+ sources:
+   - name: menuconfig
+     action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: api-gateway-menu-config
+# Allow traffic from api-gateway to menu-config
+spec:
+  destination:
+    name: menuconfig
+  sources:
+    - name: api-gateway
+      action: allow
