@@ -2,6 +2,7 @@
 from repositories.mongorepo import MongoRepo
 from use_cases.menu_list import menu_list_use_case
 from use_cases.menu_get import menu_get_use_case
+from use_cases.menu_post import menu_post_use_case
 
 # Third party modules
 from fastapi import FastAPI,status,HTTPException
@@ -47,3 +48,28 @@ def get_menu_by_id(id):
             status_code=status.HTTP_404_NOT_FOUND, detail="Menu not found!"
         )
     
+@app.post("/api/v1/menu/",
+    status_code=status.HTTP_201_CREATED,
+    name="post_menu",
+)
+def post_menu(menu: dict):
+    repo = MongoRepo()
+
+    name = menu.get('name')
+    description = menu.get('description')
+    dishes = menu.get('dishes')
+    active = menu.get('active')
+
+    if not name or not description or not dishes or not active:
+        raise HTTPException(status_code=400, detail="Missing required fields")
+
+    try:
+      result = menu_post_use_case(repo, menu)
+    except:
+      raise HTTPException(status_code=400, detail="Dish already exists")
+    
+
+    if result:
+        return result
+    else:
+        raise HTTPException(status_code=400, detail="Failed to create dish")
