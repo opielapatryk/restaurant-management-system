@@ -33,3 +33,11 @@ def test_repository_put(mg_database, mg_test_post_data):
     repo_menu = repo.put(mg_test_post_data, document_id)
 
     assert repo_menu['Updated menu:']['name'] == 'Polish Jadło2!'
+
+def test_repository_patch(mg_database, mg_test_post_data):
+    db, document_id = mg_database
+    repo = MongoRepo()
+
+    repo_menu = repo.patch(mg_test_post_data, document_id)
+
+    assert repo_menu['Updated menu:']['name'] == 'Polish Jadło2!'

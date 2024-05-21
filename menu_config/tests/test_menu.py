@@ -115,3 +115,16 @@ def test_put(mock_use_case):
     
     assert response.status_code == 201
     assert response.headers["content-type"] == "application/json"
+
+@mock.patch('main.menu_patch_use_case')
+def test_patch(mock_use_case):
+    mock_use_case.return_value = menu_put
+
+    client = TestClient(app)
+    response = client.patch('/api/v1/menu/1', json=menu_dict_put)
+
+    response_data = response.json()
+    assert response_data == menu_dict_put
+    
+    assert response.status_code == 200
+    assert response.headers["content-type"] == "application/json"

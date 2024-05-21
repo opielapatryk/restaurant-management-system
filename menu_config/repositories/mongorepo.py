@@ -60,3 +60,12 @@ class MongoRepo:
             return {'message': 'Menu updated successfully', 'Updated menu:': self.get(id)}
         else:
             return {'error': 'Menu not found or no changes were made'}
+        
+    def patch(self, updated_fields, id):
+        result = self.collection.update_one({"_id":ObjectId(id)},
+            {"$set": updated_fields})
+        
+        if result.modified_count > 0:
+            return {'message': 'Menu updated successfully', 'Updated menu:': self.get(id)}
+        else:
+            return {'error': 'Menu not found or no changes were made'}

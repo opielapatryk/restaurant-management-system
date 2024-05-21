@@ -4,6 +4,7 @@ from use_cases.menu_list import menu_list_use_case
 from use_cases.menu_get import menu_get_use_case
 from use_cases.menu_post import menu_post_use_case
 from use_cases.menu_put import menu_put_use_case
+from use_cases.menu_patch import menu_patch_use_case
 
 # Third party modules
 from fastapi import FastAPI,status,HTTPException
@@ -92,6 +93,19 @@ def put_menu(menu: dict,id):
 
     try:
       result = menu_put_use_case(repo, menu, id)
+      return result
+    except:
+      raise HTTPException(status_code=400, detail="Failed to update dish")
+    
+@app.patch("/api/v1/menu/{id}",
+    status_code=status.HTTP_200_OK,
+    name="put_menu",
+)
+def put_menu(menu: dict,id):
+    repo = MongoRepo()
+
+    try:
+      result = menu_patch_use_case(repo, menu, id)
       return result
     except:
       raise HTTPException(status_code=400, detail="Failed to update dish")
