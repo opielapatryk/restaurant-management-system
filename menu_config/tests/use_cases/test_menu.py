@@ -9,6 +9,7 @@ from use_cases.menu_get import menu_get_use_case
 from use_cases.menu_post import menu_post_use_case
 from use_cases.menu_put import menu_put_use_case
 from use_cases.menu_patch import menu_patch_use_case
+from use_cases.menu_delete import menu_delete_use_case
 
 # Built-in modules
 from unittest import mock
@@ -88,4 +89,13 @@ def test_patch_menu(domain_menu,domain_menu2):
 
     result = menu_patch_use_case(repo, domain_menu2, 1)
 
+    assert result == domain_menu2
+
+def test_delete_menu(domain_menu,domain_menu2):
+    repo = mock.Mock()
+    repo.delete.return_value = domain_menu2
+
+    result = menu_delete_use_case(repo, 1)
+
+    repo.delete.assert_called_with(1)
     assert result == domain_menu2

@@ -128,3 +128,16 @@ def test_patch(mock_use_case):
     
     assert response.status_code == 200
     assert response.headers["content-type"] == "application/json"
+
+@mock.patch('main.menu_delete_use_case')
+def test_delete(mock_use_case):
+    mock_use_case.return_value = menu_put
+
+    client = TestClient(app)
+    response = client.delete('/api/v1/menu/1')
+
+    response_data = response.json()
+    assert response_data == menu_dict_put
+    
+    assert response.status_code == 200
+    assert response.headers["content-type"] == "application/json"

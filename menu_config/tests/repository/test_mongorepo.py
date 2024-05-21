@@ -41,3 +41,11 @@ def test_repository_patch(mg_database, mg_test_post_data):
     repo_menu = repo.patch(mg_test_post_data, document_id)
 
     assert repo_menu['Updated menu:']['name'] == 'Polish Jadło2!'
+
+def test_repository_delete(mg_database):
+    db, document_id = mg_database
+    repo = MongoRepo()
+
+    repo.delete(document_id)
+
+    assert len(repo.list()) == 1

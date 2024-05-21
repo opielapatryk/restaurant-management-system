@@ -69,3 +69,7 @@ class MongoRepo:
             return {'message': 'Menu updated successfully', 'Updated menu:': self.get(id)}
         else:
             return {'error': 'Menu not found or no changes were made'}
+        
+    def delete(self, id):
+        self.collection.delete_one({"_id":ObjectId(id)})
+        return self.list()
