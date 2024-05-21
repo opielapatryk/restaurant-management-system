@@ -1,6 +1,11 @@
+# Third party modules
 import pymongo
+
+# Built-in modules
 import json
 import os
+
+# Local modules
 from bson.objectid import ObjectId
 
 

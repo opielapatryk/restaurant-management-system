@@ -1,7 +1,12 @@
+# Built-in modules
 from unittest import mock
-from fastapi.testclient import TestClient
+
+# Local modules
 from main import app
 from domain.menu.Menu import Menu
+
+# Third party modules
+from fastapi.testclient import TestClient
 
 menu_dict = {
   "id":1,

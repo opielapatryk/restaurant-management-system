@@ -1,3 +1,4 @@
+# Local modules
 from domain.dish.Dish import Dish
 
 def test_dish_model_init():

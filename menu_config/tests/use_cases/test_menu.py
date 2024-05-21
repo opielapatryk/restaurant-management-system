@@ -1,8 +1,13 @@
+# Third party modules
 import pytest
+
+# Local modules
 from domain.menu.Menu import Menu
 from domain.dish.Dish import Dish
 from use_cases.menu_list import menu_list_use_case
 from use_cases.menu_get import menu_get_use_case
+
+# Built-in modules
 from unittest import mock
 
 @pytest.fixture
