@@ -60,8 +60,9 @@ def mg_test_post_data():
 def mg_database(mg_database_empty, mg_test_data):
     collection = mg_database_empty.menu
 
-    collection.insert_one(mg_test_data)
+    inserted_document = collection.insert_one(mg_test_data)
+    document_id = inserted_document.inserted_id
 
-    yield mg_database_empty
+    yield mg_database_empty, document_id
 
-    collection.delete_one({})
+    collection.delete_one({"_id": document_id})

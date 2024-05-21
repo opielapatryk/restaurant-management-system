@@ -7,6 +7,7 @@ from domain.dish.Dish import Dish
 from use_cases.menu_list import menu_list_use_case
 from use_cases.menu_get import menu_get_use_case
 from use_cases.menu_post import menu_post_use_case
+from use_cases.menu_put import menu_put_use_case
 
 # Built-in modules
 from unittest import mock
@@ -71,3 +72,11 @@ def test_post_menu(domain_menu_post,domain_menu2):
     result = menu_post_use_case(repo, domain_menu2)
 
     assert result == domain_menu_post
+
+def test_put_menu(domain_menu,domain_menu2):
+    repo = mock.Mock()
+    repo.put.return_value = domain_menu2
+
+    result = menu_put_use_case(repo, domain_menu2, 1)
+
+    assert result == domain_menu2

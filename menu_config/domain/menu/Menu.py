@@ -1,10 +1,8 @@
 import dataclasses
-from typing import Optional
-import uuid
 
 @dataclasses.dataclass
 class Menu:
-    id: Optional[uuid.UUID] = dataclasses.field(metadata={'alias': '_id'})
+    _id: str
     name: str
     description: str
     dishes: list

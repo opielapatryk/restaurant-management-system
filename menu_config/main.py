@@ -3,6 +3,7 @@ from repositories.mongorepo import MongoRepo
 from use_cases.menu_list import menu_list_use_case
 from use_cases.menu_get import menu_get_use_case
 from use_cases.menu_post import menu_post_use_case
+from use_cases.menu_put import menu_put_use_case
 
 # Third party modules
 from fastapi import FastAPI,status,HTTPException
@@ -73,3 +74,25 @@ def post_menu(menu: dict):
         return result
     else:
         raise HTTPException(status_code=400, detail="Failed to create dish")
+    
+@app.put("/api/v1/menu/{id}",
+    status_code=status.HTTP_201_CREATED,
+    name="put_menu",
+)
+def put_menu(menu: dict,id):
+    repo = MongoRepo()
+
+    name = menu.get('name')
+    description = menu.get('description')
+    dishes = menu.get('dishes')
+    active = menu.get('active')
+
+    if not name or not description or not dishes or not active:
+        raise HTTPException(status_code=400, detail="Missing required fields")
+
+    try:
+      result = menu_put_use_case(repo, menu, id)
+      return result
+    except:
+      raise HTTPException(status_code=400, detail="Failed to update dish")
+    

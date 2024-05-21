@@ -43,10 +43,20 @@ class MongoRepo:
         return result
     
     def get(self,id):
-        result = self.collection.find_one(ObjectId(id))
+        result = self.collection.find_one({"_id":ObjectId(id)})
+
         menu = self._create_menu_object(result)
         return menu
     
     def post(self,new_menu):
         self.collection.insert_one(new_menu)
         return self.list()
+    
+    def put(self, updated_menu, id):
+        result = self.collection.update_one({"_id":ObjectId(id)},
+            {"$set": updated_menu})
+        
+        if result.modified_count > 0:
+            return {'message': 'Menu updated successfully', 'Updated menu:': self.get(id)}
+        else:
+            return {'error': 'Menu not found or no changes were made'}
