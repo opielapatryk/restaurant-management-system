@@ -1,7 +1,13 @@
+# Built-in modules
 from unittest import mock
+
+# Third party modules
 from fastapi.testclient import TestClient
+
+# Local modules
 from main import app
 from domain.menu.Menu import Menu
+from repositories.redis import cache
 
 menu_dict = {
   "id":1,
@@ -25,6 +31,9 @@ menu = Menu.from_dict(menu_dict)
 
 @mock.patch('main.menu_list_use_case')
 def test_list(mock_use_case):
+    # Clear cache before test
+    cache().delete("menu_1")
+
     mock_use_case.return_value = menu
 
     client = TestClient(app)

@@ -17,7 +17,7 @@ def test_repository_get(mg_database, mg_test_data):
 
     assert repo_menu['name'] == mg_test_data['name']
 
-def test_repository_post(mg_database, mg_test_data, mg_test_post_data):
+def test_repository_post(mg_database, mg_test_post_data):
     repo = MongoRepo()
 
     repo_menu = repo.post(mg_test_post_data)
