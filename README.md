@@ -1,4 +1,6 @@
 # Restaurant Management System
+To run project you need running kubernetes i.e. on Docker Desktop.<br>
+Instruction for installation is located in kubernetes/readme.md<br>
 
 ## Goals and scope of project:
 This system will be created using microservices, <br>
@@ -9,7 +11,7 @@ right now there will be only three of them:<br>
 In the future I will fill up the project with other functionalities :)<br>
 
 ## Used technology and tools
-API Gateway: Kong<br>
+API Gateway: Consul<br>
 Service Discovery: Consul<br>
 Communication between client and microservices: REST API<br>
 Sync communication between microservices: gRPC<br>
