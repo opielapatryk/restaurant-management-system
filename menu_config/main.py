@@ -31,7 +31,7 @@ def get_menu():
             status_code=status.HTTP_404_NOT_FOUND, detail="Menu not found!"
         )
     
-@app.get("/api/v1/menu/{id}",
+@app.get("/api/v1/config/{id}",
     status_code=status.HTTP_200_OK,
     name="get_menu",
 )
@@ -46,7 +46,7 @@ def get_menu_by_id(id):
             status_code=status.HTTP_404_NOT_FOUND, detail="Menu not found!"
         )
     
-@app.post("/api/v1/menu/",
+@app.post("/api/v1/config/",
     status_code=status.HTTP_201_CREATED,
     name="post_menu",
 )
@@ -72,7 +72,7 @@ def post_menu(menu: dict):
     else:
         raise HTTPException(status_code=400, detail="Failed to create dish")
     
-@app.put("/api/v1/menu/{id}",
+@app.put("/api/v1/config/{id}",
     status_code=status.HTTP_201_CREATED,
     name="put_menu",
 )
@@ -93,7 +93,7 @@ def put_menu(menu: dict,id):
     except:
       raise HTTPException(status_code=400, detail="Failed to update dish")
     
-@app.patch("/api/v1/menu/{id}",
+@app.patch("/api/v1/config/{id}",
     status_code=status.HTTP_200_OK,
     name="patch_menu",
 )
@@ -106,7 +106,7 @@ def patch_menu(menu: dict,id):
     except:
       raise HTTPException(status_code=400, detail="Failed to update dish")
     
-@app.delete("/api/v1/menu/{id}",
+@app.delete("/api/v1/config/{id}",
     status_code=status.HTTP_200_OK,
     name="delete_menu",
 )
