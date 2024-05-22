@@ -9,8 +9,20 @@ from use_cases.menu_delete import menu_delete_use_case
 
 # Third party modules
 from fastapi import FastAPI,status,HTTPException
+import pika
 
 app = FastAPI(docs_url="/api/v1/config/docs",openapi_url="/api/v1/config/openapi.json")
+
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
+channel.queue_declare(queue='hello')
+
+channel.basic_publish(exchange='',
+                      routing_key='hello',
+                      body='Hello World!')
+print(" [x] Sent 'Hello World!'")
+
+connection.close()
 
 class EntityDoesNotExist(Exception):
     """Raised when entity was not found in database."""
@@ -89,6 +101,7 @@ def put_menu(menu: dict,id):
 
     try:
       result = menu_put_use_case(repo, menu, id)
+
       return result
     except:
       raise HTTPException(status_code=400, detail="Failed to update dish")

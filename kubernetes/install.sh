@@ -3,7 +3,7 @@ helm install --values values-v1.yaml consul hashicorp/consul --version "1.2.0" &
 kubectl wait --for=condition=available --timeout=90s deployment/consul-connect-injector && \
 kubectl apply -f proxy-defaults.yaml && \
 kubectl apply -f redis.yaml && \
-kubectl apply -f kafka.yaml && \
+kubectl apply -f rabbitmq.yaml && \
 kubectl apply -f mongodb.yaml && \
 kubectl apply -f menu-config-mongodb.yaml && \
 kubectl apply -f menu.yaml && \
