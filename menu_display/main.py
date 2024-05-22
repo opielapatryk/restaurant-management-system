@@ -3,18 +3,13 @@ from repositories.redis import cache
 from use_cases.menu_list import menu_list_use_case
 from fastapi import FastAPI,status,HTTPException,Depends
 import pickle
-from fastapi.responses import RedirectResponse
 
-app = FastAPI()
+app = FastAPI(docs_url="/api/v1/display/docs",openapi_url="/api/v1/display/openapi.json")
 
 class EntityDoesNotExist(Exception):
     """Raised when entity was not found in database."""
 
-@app.get("/", include_in_schema=False)
-async def welcome():
-    return RedirectResponse("/docs")
-
-@app.get("/api/v1/menu",
+@app.get("/api/v1/display",
     status_code=status.HTTP_200_OK,
     name="get_menu",
 )

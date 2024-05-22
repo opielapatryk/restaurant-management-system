@@ -9,18 +9,13 @@ from use_cases.menu_delete import menu_delete_use_case
 
 # Third party modules
 from fastapi import FastAPI,status,HTTPException
-from fastapi.responses import RedirectResponse
 
-app = FastAPI()
+app = FastAPI(docs_url="/api/v1/config/docs",openapi_url="/api/v1/config/openapi.json")
 
 class EntityDoesNotExist(Exception):
     """Raised when entity was not found in database."""
 
-@app.get("/", include_in_schema=False)
-async def welcome():
-    return RedirectResponse("/docs")
-
-@app.get("/api/v1/menu",
+@app.get("/api/v1/config",
     status_code=status.HTTP_200_OK,
     name="get_menu",
 )

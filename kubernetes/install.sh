@@ -7,6 +7,7 @@ kubectl apply -f mongodb.yaml && \
 kubectl apply -f menu-config-mongodb.yaml && \
 kubectl apply -f menu.yaml && \
 kubectl apply -f menu-config.yaml && \
+kubectl apply -f nginx.yaml && \
 kubectl apply -f allow.yaml && \
 kubectl apply -f consul-api-gateway.yaml && \
 kubectl apply -f routes.yaml && \

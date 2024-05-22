@@ -46,7 +46,7 @@ spec:
         service: menuconfig
       annotations:
         consul.hashicorp.com/connect-inject: "true"
-        consul.hashicorp.com/connect-service-upstreams: "menu-config-mongodb:27018"
+        consul.hashicorp.com/connect-service-upstreams: "menu-config-mongodb:27017"
     spec:
       serviceAccountName: menuconfig
       containers:

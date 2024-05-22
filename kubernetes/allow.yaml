@@ -1,13 +1,13 @@
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
-  name: api-gateway-menu
+  name: nginx-menu
 # Allow traffic from api-gateway to menu
 spec:
   destination:
     name: menu
   sources:
-    - name: api-gateway
+    - name: nginx
       action: allow
 ---
 apiVersion: consul.hashicorp.com/v1alpha1
@@ -52,11 +52,23 @@ spec:
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
-  name: api-gateway-menu-config
+  name: nginx-menu-config
 # Allow traffic from api-gateway to menu-config
 spec:
   destination:
     name: menuconfig
+  sources:
+    - name: nginx
+      action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: api-gateway-nginx
+# Allow traffic from api-gateway to menu
+spec:
+  destination:
+    name: nginx
   sources:
     - name: api-gateway
       action: allow
