@@ -83,16 +83,11 @@ def post_menu(menu: dict):
 def put_menu(menu: dict,id):
     repo = MongoRepo()
 
-    name = menu.get('name')
-    description = menu.get('description')
-    dishes = menu.get('dishes')
-    active = menu.get('active')
-
-    if not name or not description or not dishes or not active:
-        raise HTTPException(status_code=400, detail="Missing required fields")
-
     try:
       result = menu_put_use_case(repo, menu, id)
+
+      if menu.get('active') == True:
+        produce_message(result)
 
       return result
     except:

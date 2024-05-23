@@ -57,14 +57,16 @@ class MongoRepo:
 
         return self.get(menu_id)
     
-    def put(self, updated_menu, id):
-        result = self.collection.update_one({"_id":ObjectId(id)},
-            {"$set": updated_menu})
+    def put(self, updated_menu, menu_id):
+        self.collection.update_one({"_id":ObjectId(menu_id)},{"$set": updated_menu})
         
-        if result.modified_count > 0:
-            return {'message': 'Menu updated successfully', 'Updated menu:': self.get(id)}
-        else:
-            return {'error': 'Menu not found or no changes were made'}
+        if updated_menu.get('active', True):
+            self.collection.update_many(
+                {"_id": {"$ne": menu_id}}, 
+                {"$set": {"active": False}} 
+            )
+        
+        return self.get(menu_id)
         
     def patch(self, updated_fields, id):
         result = self.collection.update_one({"_id":ObjectId(id)},
