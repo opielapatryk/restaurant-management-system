@@ -69,7 +69,7 @@ def test_list(mock_use_case):
     mock_use_case.return_value = menu
 
     client = TestClient(app)
-    response = client.get('/api/v1/menu')
+    response = client.get('/api/v1/config')
 
     response_data = response.json()
     assert response_data == menu_dict
@@ -82,7 +82,7 @@ def test_get(mock_use_case):
     mock_use_case.return_value = menu
 
     client = TestClient(app)
-    response = client.get('/api/v1/menu/1')
+    response = client.get('/api/v1/config/1')
 
     response_data = response.json()
     assert response_data == menu_dict
@@ -95,7 +95,7 @@ def test_post(mock_use_case):
     mock_use_case.return_value = [menu,menu2]
 
     client = TestClient(app)
-    response = client.post('/api/v1/menu/', json=menu_dict2)
+    response = client.post('/api/v1/config/', json=menu_dict2)
 
     response_data = response.json()
     assert response_data == [menu_dict,menu_dict2]
@@ -108,7 +108,7 @@ def test_put(mock_use_case):
     mock_use_case.return_value = menu_put
 
     client = TestClient(app)
-    response = client.put('/api/v1/menu/1', json=menu_dict_put)
+    response = client.put('/api/v1/config/1', json=menu_dict_put)
 
     response_data = response.json()
     assert response_data == menu_dict_put
@@ -121,7 +121,7 @@ def test_patch(mock_use_case):
     mock_use_case.return_value = menu_put
 
     client = TestClient(app)
-    response = client.patch('/api/v1/menu/1', json=menu_dict_put)
+    response = client.patch('/api/v1/config/1', json=menu_dict_put)
 
     response_data = response.json()
     assert response_data == menu_dict_put
@@ -134,7 +134,7 @@ def test_delete(mock_use_case):
     mock_use_case.return_value = menu_put
 
     client = TestClient(app)
-    response = client.delete('/api/v1/menu/1')
+    response = client.delete('/api/v1/config/1')
 
     response_data = response.json()
     assert response_data == menu_dict_put

@@ -1,6 +1,5 @@
 # Local modules
 from repositories.mongorepo import MongoRepo
-from domain.menu.Menu import Menu
 
 def test_repository_list_without_parameters(mg_database, mg_test_data):
     repo = MongoRepo()

@@ -37,7 +37,7 @@ def test_list(mock_use_case):
     mock_use_case.return_value = menu
 
     client = TestClient(app)
-    response = client.get('/api/v1/menu')
+    response = client.get('/api/v1/display')
 
     response_data = response.json()
     assert response_data == menu_dict

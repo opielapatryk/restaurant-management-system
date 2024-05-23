@@ -1,4 +1,7 @@
+# Third party modules
 import pymongo
+
+# Built-in modules
 import json
 import os
 
