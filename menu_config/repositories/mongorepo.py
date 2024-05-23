@@ -4,10 +4,7 @@ import pymongo
 # Built-in modules
 import json
 import os
-
-# Local modules
 from bson.objectid import ObjectId
-
 
 class MongoRepo:
     def __init__(self, json_file_name='example_menu.json'):
@@ -49,8 +46,16 @@ class MongoRepo:
         return menu
     
     def post(self,new_menu):
-        self.collection.insert_one(new_menu)
-        return self.list()
+        result = self.collection.insert_one(new_menu)
+        menu_id = result.inserted_id
+
+        if new_menu.get('active', True):
+            self.collection.update_many(
+                {"_id": {"$ne": menu_id}}, 
+                {"$set": {"active": False}} 
+            )
+
+        return self.get(menu_id)
     
     def put(self, updated_menu, id):
         result = self.collection.update_one({"_id":ObjectId(id)},

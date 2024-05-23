@@ -51,8 +51,6 @@ def get_menu_by_id(id):
     try:
         repo = MongoRepo()
         menu = menu_get_use_case(repo, id)
-
-        produce_message('test')
         
         return menu
 
@@ -68,24 +66,15 @@ def get_menu_by_id(id):
 def post_menu(menu: dict):
     repo = MongoRepo()
 
-    name = menu.get('name')
-    description = menu.get('description')
-    dishes = menu.get('dishes')
-    active = menu.get('active')
-
-    if not name or not description or not dishes or not active:
-        raise HTTPException(status_code=400, detail="Missing required fields")
-
     try:
       result = menu_post_use_case(repo, menu)
+      
+      if menu.get('active') == True:
+        produce_message(result)
+      
+      return result
     except:
-      raise HTTPException(status_code=400, detail="Menu already exists")
-    
-
-    if result:
-        return result
-    else:
-        raise HTTPException(status_code=400, detail="Failed to create menu")
+      raise HTTPException(status_code=400, detail="Menu already exists or missing required fields")
     
 @app.put("/api/v1/config/{id}",
     status_code=status.HTTP_201_CREATED,

@@ -1,5 +1,6 @@
 # Third party modules 
 import pika
+import json
 
 # Local modules
 from core.config import settings
@@ -10,11 +11,11 @@ class RabbitMQProducer:
         self.channel = self.connection.channel()
         self.channel.queue_declare(queue='task_queue', durable=True)
 
-    def publish(self, message: str):
+    def publish(self, message: dict):
         self.channel.basic_publish(
             exchange='',
             routing_key='task_queue',
-            body=message,
+            body=json.dumps(message),
             properties=pika.BasicProperties(
                 delivery_mode=2,
             )

@@ -4,6 +4,7 @@ import pymongo
 # Built-in modules
 import json
 import os
+from bson.objectid import ObjectId
 
 class MongoRepo:
     def __init__(self, json_file_name='example_menu.json'):
@@ -37,3 +38,10 @@ class MongoRepo:
         result = self.collection.find_one()
         menu = self._create_menu_object(result)
         return menu
+
+    def patch(self, updated_fields, id):
+        result = self.collection.update_one({"_id":ObjectId(id)},
+            {"$set": updated_fields})
+        
+        if result.modified_count > 0:
+            return self.list()

@@ -29,14 +29,14 @@ class EntityDoesNotExist(Exception):
     name="get_menu",
 )
 def get_menu(redis_client: cache = Depends(cache)):
-    if (cached_menu := redis_client.get("menu_1")) is not None:
+    if (cached_menu := redis_client.get("menu")) is not None:
         return pickle.loads(cached_menu)
 
     try:
         repo = MongoRepo()
         menu = menu_list_use_case(repo)
         
-        redis_client.set("menu_1", pickle.dumps(menu))
+        redis_client.set("menu", pickle.dumps(menu))
 
         return menu
 

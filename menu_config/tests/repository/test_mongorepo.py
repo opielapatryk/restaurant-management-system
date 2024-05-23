@@ -22,8 +22,7 @@ def test_repository_post(mg_database, mg_test_post_data):
 
     repo_menu = repo.post(mg_test_post_data)
 
-    assert repo_menu[0]['name'] == 'Polish Jadło!'
-    assert repo_menu[1]['name'] == 'Polish Jadło2!'
+    assert repo_menu['name'] == 'Polish Jadło2!'
 
 def test_repository_put(mg_database, mg_test_post_data):
     db, document_id = mg_database

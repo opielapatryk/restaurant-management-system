@@ -92,13 +92,13 @@ def test_get(mock_use_case):
 
 @mock.patch('main.menu_post_use_case')
 def test_post(mock_use_case):
-    mock_use_case.return_value = [menu,menu2]
+    mock_use_case.return_value = menu_dict2
 
     client = TestClient(app)
     response = client.post('/api/v1/config/', json=menu_dict2)
 
     response_data = response.json()
-    assert response_data == [menu_dict,menu_dict2]
+    assert response_data == menu_dict2
     
     assert response.status_code == 201
     assert response.headers["content-type"] == "application/json"
