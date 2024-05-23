@@ -1,3 +1,4 @@
+# Local modules
 from domain.menu.Menu import Menu
 from domain.dish.Dish import Dish
 

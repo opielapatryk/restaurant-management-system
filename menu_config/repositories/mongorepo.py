@@ -4,10 +4,7 @@ import pymongo
 # Built-in modules
 import json
 import os
-
-# Local modules
 from bson.objectid import ObjectId
-
 
 class MongoRepo:
     def __init__(self, json_file_name='example_menu.json'):
@@ -49,26 +46,38 @@ class MongoRepo:
         return menu
     
     def post(self,new_menu):
-        self.collection.insert_one(new_menu)
-        return self.list()
+        result = self.collection.insert_one(new_menu)
+        menu_id = result.inserted_id
+
+        if new_menu.get('active', True):
+            self.collection.update_many(
+                {"_id": {"$ne": menu_id}}, 
+                {"$set": {"active": False}} 
+            )
+
+        return self.get(menu_id)
     
-    def put(self, updated_menu, id):
-        result = self.collection.update_one({"_id":ObjectId(id)},
-            {"$set": updated_menu})
+    def put(self, updated_menu, menu_id):
+        self.collection.update_one({"_id":ObjectId(menu_id)},{"$set": updated_menu})
         
-        if result.modified_count > 0:
-            return {'message': 'Menu updated successfully', 'Updated menu:': self.get(id)}
-        else:
-            return {'error': 'Menu not found or no changes were made'}
+        if updated_menu.get('active', True):
+            self.collection.update_many(
+                {"_id": {"$ne": menu_id}}, 
+                {"$set": {"active": False}} 
+            )
         
-    def patch(self, updated_fields, id):
-        result = self.collection.update_one({"_id":ObjectId(id)},
-            {"$set": updated_fields})
+        return self.get(menu_id)
         
-        if result.modified_count > 0:
-            return {'message': 'Menu updated successfully', 'Updated menu:': self.get(id)}
-        else:
-            return {'error': 'Menu not found or no changes were made'}
+    def patch(self, updated_fields, menu_id):
+        self.collection.update_one({"_id":ObjectId(menu_id)},{"$set": updated_fields})
+        
+        if updated_fields.get("active", True):
+            self.collection.update_many(
+                {"_id": {"$ne": ObjectId(menu_id)}}, 
+                {"$set": {"active": False}} 
+            )
+
+        return self.get(menu_id)
         
     def delete(self, id):
         self.collection.delete_one({"_id":ObjectId(id)})

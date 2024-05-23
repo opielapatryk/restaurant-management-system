@@ -1,0 +1,71 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: default
+  labels:
+    app: rabbitmq
+spec:
+  type: ClusterIP
+  ports:
+  - name: ampq
+    port: 5672
+    protocol: TCP
+    targetPort: 5672
+  selector:
+    app: rabbitmq
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: rabbitmq
+  namespace: default
+spec:
+  protocol: "tcp"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rabbitmq
+  namespace: default
+automountServiceAccountToken: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: rabbitmq
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        service: rabbitmq
+        app: rabbitmq
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
+        # consul.hashicorp.com/transparent-proxy: "true"
+        # consul.hashicorp.com/transparent-proxy-exclude-inbound-ports: "15672, 5672"
+        # consul.hashicorp.com/transparent-proxy-exclude-outbound-ports: "15672, 5672"
+        consul.hashicorp.com/transparent-proxy: 'false'
+        consul.hashicorp.com/connect-service: 'rabbitmq'
+        consul.hashicorp.com/connect-service-port: '5672'
+    spec:
+      serviceAccountName: rabbitmq
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:management
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5672
+          volumeMounts:
+            - mountPath: "/var/lib/rabbitmq/data"
+              name: "rabbitmq-data"
+      volumes:
+        - name: rabbitmq-data
+          emptyDir: {}
