@@ -97,11 +97,16 @@ def put_menu(menu: dict,id):
     status_code=status.HTTP_200_OK,
     name="patch_menu",
 )
-def patch_menu(menu: dict,id):
+def patch_menu(menu_fields: dict,id):
     repo = MongoRepo()
 
     try:
-      result = menu_patch_use_case(repo, menu, id)
+      result = menu_patch_use_case(repo, menu_fields, id)
+
+      menu_active = menu_get_use_case(repo, id)['active']
+
+      if menu_active == True:
+        produce_message(result)
       
       return result
     except:
