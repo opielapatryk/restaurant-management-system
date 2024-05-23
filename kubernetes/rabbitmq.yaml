@@ -9,10 +9,6 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: http
-    port: 15672
-    protocol: TCP
-    targetPort: 15672
   - name: ampq
     port: 5672
     protocol: TCP
@@ -58,7 +54,7 @@ spec:
         # consul.hashicorp.com/transparent-proxy-exclude-outbound-ports: "15672, 5672"
         consul.hashicorp.com/transparent-proxy: 'false'
         consul.hashicorp.com/connect-service: 'rabbitmq'
-        consul.hashicorp.com/connect-service-port: '15672,5672'
+        consul.hashicorp.com/connect-service-port: '5672'
     spec:
       serviceAccountName: rabbitmq
       containers:
@@ -66,7 +62,6 @@ spec:
           image: rabbitmq:management
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 15672
             - containerPort: 5672
           volumeMounts:
             - mountPath: "/var/lib/rabbitmq/data"

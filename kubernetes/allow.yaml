@@ -76,11 +76,13 @@ spec:
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
- name: menuconfig-rabbitmq
+ name: apis-rabbitmq
  namespace: default
 spec:
  destination:
    name: rabbitmq
  sources:
    - name: menuconfig
+     action: allow
+   - name: menu
      action: allow
