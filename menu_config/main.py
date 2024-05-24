@@ -8,14 +8,36 @@ from use_cases.menu_patch import menu_patch_use_case
 from use_cases.menu_delete import menu_delete_use_case
 from use_cases.producer import ProducerService
 from repositories.rabbitmq import RabbitMQProducer
+from client import AuthClient
+from domain.auth.auth import AuthData
+from domain.auth.token import TokenData
 
 # Third party modules
 from fastapi import FastAPI,status,HTTPException
 
-# Built-in modules
-import json
-
 app = FastAPI(docs_url="/api/v1/config/docs",openapi_url="/api/v1/config/openapi.json")
+auth_client = AuthClient()
+
+@app.post("/login")
+def login(auth_data: AuthData):
+    response = auth_client.authenticate(auth_data.email, auth_data.password)
+    if not response.success:
+        raise HTTPException(status_code=401, detail=response.message)
+    return {"access_token": response.access_token, "refresh_token": response.refresh_token}
+
+@app.post("/refresh-token")
+def refresh_token(token_data: TokenData):
+    response = auth_client.refresh_token(token_data.token)
+    if not response.success:
+        raise HTTPException(status_code=401, detail=response.message)
+    return {"access_token": response.access_token, "refresh_token": response.refresh_token}
+
+@app.post("/verify-token")
+def verify_token(token_data: TokenData):
+    response = auth_client.verify_token(token_data.token)
+    if not response.valid:
+        raise HTTPException(status_code=401, detail=response.message)
+    return {"message": response.message}
 
 def produce_message(message,service: ProducerService = ProducerService, broker: RabbitMQProducer = RabbitMQProducer):
     try:

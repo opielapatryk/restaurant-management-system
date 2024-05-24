@@ -3,3 +3,6 @@ uvicorn
 pymongo
 pytest
 pika
+pydantic
+grpcio 
+grpcio-tools

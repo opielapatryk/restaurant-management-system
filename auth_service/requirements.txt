@@ -1,0 +1,8 @@
+sqlalchemy 
+psycopg2-binary 
+alembic 
+grpcio 
+grpcio-tools
+pytest
+passlib
+PyJWT
