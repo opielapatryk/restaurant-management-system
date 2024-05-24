@@ -15,6 +15,10 @@ kubectl apply -f menu.yaml && \
 kubectl wait --for=condition=available --timeout=90s deployment/consul-connect-injector && \
 kubectl apply -f menu-config.yaml && \
 kubectl wait --for=condition=available --timeout=90s deployment/consul-connect-injector && \
+kubectl apply -f postgres.yaml && \
+kubectl wait --for=condition=available --timeout=90s deployment/consul-connect-injector && \
+kubectl apply -f auth.yaml && \
+kubectl wait --for=condition=available --timeout=90s deployment/consul-connect-injector && \
 kubectl apply -f nginx.yaml && \
 kubectl apply -f allow.yaml && \
 kubectl apply -f consul-api-gateway.yaml && \

@@ -86,3 +86,27 @@ spec:
      action: allow
    - name: menu
      action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: auth-postgresql
+ namespace: default
+spec:
+ destination:
+   name: postgres
+ sources:
+   - name: auth
+     action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: menuconfig-auth
+ namespace: default
+spec:
+ destination:
+   name: auth
+ sources:
+   - name: menuconfig
+     action: allow
