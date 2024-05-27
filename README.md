@@ -8,7 +8,7 @@ right now there will be only four of them:<br>
 - Display Menu Service<br>
 - Config Menu Service<br>
 - Auth Service<br>
-- Order Service<br>
+- Cart Service<br>
 In the future I will fill up the project with other functionalities :)<br>
 
 ## Used technology and tools
