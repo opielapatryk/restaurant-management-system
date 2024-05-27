@@ -19,7 +19,8 @@ class AuthService(auth_pb2_grpc.AuthServiceServicer):
 
         db: Session = SessionLocal()
         user = db.query(User).filter(User.email == email).first()
-        if not user or not verify_password(password, user.hashed_password):
+        hashed_password = bytes(user.hashed_password)
+        if not user or not verify_password(password, hashed_password):
             return auth_pb2.AuthResponse(success=False, message="Invalid credentials", access_token="", refresh_token="")
         
         access_token = create_access_token(data={"sub": email})

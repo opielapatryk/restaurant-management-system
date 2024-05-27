@@ -6,3 +6,4 @@ grpcio-tools
 pytest
 passlib
 PyJWT
+bcrypt==4.0.1

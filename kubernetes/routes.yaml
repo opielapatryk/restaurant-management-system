@@ -20,6 +20,12 @@ spec:
     - path:
         type: PathPrefix
         value: /login
+    - path:
+        type: PathPrefix
+        value: /refresh-token
+    - path:
+        type: PathPrefix
+        value: /verify-token
     # Defines the backend service.
     backendRefs:
     - kind: Service

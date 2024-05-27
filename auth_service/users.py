@@ -8,17 +8,17 @@ from sqlalchemy import (
     UniqueConstraint, 
     PrimaryKeyConstraint
 )
+from sqlalchemy.orm import declarative_base
 
-# Local modules
-from database import Base
-
+# Create database declarative base
+Base = declarative_base()
 
 class User(Base):
     """Models a user table"""
     __tablename__ = "users"
     email = Column(String(225), nullable=False, unique=True)
     id = Column(Integer, nullable=False, primary_key=True)
-    hashed_password = Column(LargeBinary, nullable=False)
+    hashed_password = Column(String, nullable=False)
     full_name = Column(String(225), nullable=False)
     is_active = Column(Boolean, default=False)
 
