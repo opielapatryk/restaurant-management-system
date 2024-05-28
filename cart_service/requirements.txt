@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pymongo
+pytest
+pika
+pydantic
+grpcio 
+grpcio-tools
+redis
+pydantic_settings
