@@ -4,11 +4,12 @@ Instruction for installation is located in kubernetes/readme.md<br>
 
 ## Goals and scope of project:
 This system will be created using microservices, <br>
-right now there will be only four of them:<br>
+right now there will be only five of them:<br>
 - Display Menu Service<br>
 - Config Menu Service<br>
 - Auth Service<br>
 - Cart Service<br>
+- Order Service<br>
 In the future I will fill up the project with other functionalities :)<br>
 
 ## Used technology and tools
