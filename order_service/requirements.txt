@@ -1,0 +1,7 @@
+motor
+loguru
+fastapi
+uuid7==0.1.0
+pydantic
+uvicorn 
+python-dotenv

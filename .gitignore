@@ -2,3 +2,9 @@ venv
 kubernetes/display_service/mongo-secret.yaml
 menu_display/db_root_password.txt
 menu_display/db_root_username.txt
+
+# Own stuff
+certs/
+
+# Env variables
+.env
