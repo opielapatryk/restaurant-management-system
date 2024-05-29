@@ -1,11 +1,11 @@
 # Local modules
-from domain.dish.Dish import Dish, DishUpdate
-from repositories.redis import RedisRepo
-from use_cases.add_dish import add_dish
-from use_cases.delete_cart import delete_cart
-from use_cases.delete_dish import delete_dish
-from use_cases.get_cart import get_cart
-from use_cases.update_dish_qt import update_dish_qt
+from src.domain.dish import Dish, DishUpdate
+from src.repositories.redis import RedisRepo
+from src.use_cases.add_dish import add_dish
+from src.use_cases.delete_cart import delete_cart
+from src.use_cases.delete_dish import delete_dish
+from src.use_cases.get_cart import get_cart
+from src.use_cases.update_dish_qt import update_dish_qt
 
 # Third party modules
 from fastapi import FastAPI, HTTPException, Cookie, Response
@@ -17,7 +17,7 @@ import uuid
 app = FastAPI()
 repo = RedisRepo()
 
-@app.post("/cart/dishes/", response_model=Dish)
+@app.post("/api/v1/cart/dishes/", response_model=Dish)
 async def add_dish_to_cart(dish: Dish, response: Response, session_id: str = Cookie(None)):
     if not session_id:
         session_id = str(uuid.uuid4())
@@ -27,7 +27,7 @@ async def add_dish_to_cart(dish: Dish, response: Response, session_id: str = Coo
 
     return dish
 
-@app.get("/cart/dishes/")
+@app.get("/api/v1/cart/dishes/")
 async def get_cart_dishes(session_id: str = Cookie(None)):
     if not session_id:
         raise HTTPException(status_code=400, detail="Session ID is required")
@@ -37,7 +37,7 @@ async def get_cart_dishes(session_id: str = Cookie(None)):
         raise HTTPException(status_code=404, detail="Cart not found")
     return {dish_id.decode(): json.loads(dish_data.decode()) for dish_id, dish_data in cart_dishes.items()}
 
-@app.put("/cart/dishes/{dish_id}", response_model=DishUpdate)
+@app.put("/api/v1/cart/dishes/{dish_id}")
 async def update_dish_quantity(dish_id: str, dish_update: DishUpdate, session_id: str = Cookie(None)):
     if not session_id:
         raise HTTPException(status_code=400, detail="Session ID is required")
@@ -48,7 +48,7 @@ async def update_dish_quantity(dish_id: str, dish_update: DishUpdate, session_id
     
     return update_dish_qt(repo,dish_update,dish_id,session_id)
 
-@app.delete("/cart/dishes/{dish_id}")
+@app.delete("/api/v1/cart/dishes/{dish_id}")
 async def remove_dish_from_cart(dish_id: str, session_id: str = Cookie(None)):
     if not session_id:
         raise HTTPException(status_code=400, detail="Session ID is required")
@@ -59,7 +59,7 @@ async def remove_dish_from_cart(dish_id: str, session_id: str = Cookie(None)):
         raise HTTPException(status_code=404, detail="dish not found in cart")
     return {"message": "dish removed"}
 
-@app.delete("/cart")
+@app.delete("/api/v1/cart")
 async def clear_cart(session_id: str = Cookie(None)):
     if not session_id:
         raise HTTPException(status_code=400, detail="Session ID is required")
