@@ -1,3 +1,4 @@
+![Container Diagram](./container.png)
 # Restaurant Management System
 To run project you need running kubernetes i.e. on Docker Desktop.<br>
 Instruction for installation is located in kubernetes/readme.md<br>
@@ -22,7 +23,3 @@ Cache: Redis<br>
 Database Menu: MongoDB<br>
 Database Employees: PostgreSQL<br>
 Microservices: Fast API<br>
-
-## System Architecture
-For modeling system architecture I used technique called [c4model](https://c4model.com/)<br>
-![Container Diagram](./container.png)
