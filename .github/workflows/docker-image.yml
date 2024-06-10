@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "auth" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "auth" ]
 
 jobs:
 
@@ -22,4 +22,4 @@ jobs:
       run: docker build --platform linux/amd64 -t opielapatryk/test ./auth_service
 
     - name: Push the Docker image
-      run: docker push opielapatryk/test
+      run: docker push opielapatryk/auth
