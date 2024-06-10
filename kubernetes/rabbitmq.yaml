@@ -49,9 +49,6 @@ spec:
         app: rabbitmq
       annotations:
         consul.hashicorp.com/connect-inject: "true"
-        # consul.hashicorp.com/transparent-proxy: "true"
-        # consul.hashicorp.com/transparent-proxy-exclude-inbound-ports: "15672, 5672"
-        # consul.hashicorp.com/transparent-proxy-exclude-outbound-ports: "15672, 5672"
         consul.hashicorp.com/transparent-proxy: 'false'
         consul.hashicorp.com/connect-service: 'rabbitmq'
         consul.hashicorp.com/connect-service-port: '5672'
