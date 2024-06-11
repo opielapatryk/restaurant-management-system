@@ -46,12 +46,18 @@ spec:
         service: menuconfig
       annotations:
         consul.hashicorp.com/connect-inject: "true"
-        consul.hashicorp.com/connect-service-upstreams: "menu-config-mongodb:27017,rabbitmq:5672,auth:50051"
     spec:
       serviceAccountName: menuconfig
       containers:
         - name: menuconfig
-          image: "opielapatryk/menu_config:latest"
+          image: "opielapatryk/menu_config_eks2"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 1028
+          env:
+            - name: MONGO_HOST
+              value: "menu-config-mongodb"
+            - name: RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: AUTH_GRPC
+              value: "auth"

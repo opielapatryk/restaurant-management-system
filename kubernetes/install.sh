@@ -52,45 +52,6 @@ echo "#######################################"
 echo "Deployment Complete"
 echo "Grab your coffe and come back in 15 minutes :)"
 echo "Endpoints:"
-echo "Authentication: http://127.0.0.1:8000/api/v1/schema/auth"
-echo "Cart: http://127.0.0.1:8000/api/v1/schema/cart"
-echo "Config: http://127.0.0.1:8000/api/v1/schema/config"
-echo "Display: http://127.0.0.1:8000/api/v1/schema/display"
-echo "Order: http://127.0.0.1:8000/api/v1/schema/order"
+echo "Config: http://API-GATEWAY:8000/api/v1/config/docs"
+echo "Display: http://API-GATEWAY:8000/api/v1/display/docs"
 echo "#######################################"
-
-sleep 900 # Wait for services installation
-
-# Determine the operating system and open URLs accordingly
-OS="$(uname)"
-if [ "$OS" == "Linux" ]; then
-    if command -v xdg-open > /dev/null; then
-        xdg-open "http://127.0.0.1:8000/api/v1/schema/auth"
-        xdg-open "http://127.0.0.1:8000/api/v1/schema/cart"
-        xdg-open "http://127.0.0.1:8000/api/v1/schema/config"
-        xdg-open "http://127.0.0.1:8000/api/v1/schema/display"
-        xdg-open "http://127.0.0.1:8000/api/v1/schema/order"
-    elif command -v gnome-open > /dev/null; then
-        gnome-open "http://127.0.0.1:8000/api/v1/schema/auth"
-        gnome-open "http://127.0.0.1:8000/api/v1/schema/cart"
-        gnome-open "http://127.0.0.1:8000/api/v1/schema/config"
-        gnome-open "http://127.0.0.1:8000/api/v1/schema/display"
-        gnome-open "http://127.0.0.1:8000/api/v1/schema/order"
-    fi
-elif [ "$OS" == "Darwin" ]; then
-    open "http://127.0.0.1:8000/api/v1/schema/auth"
-    open "http://127.0.0.1:8000/api/v1/schema/cart"
-    open "http://127.0.0.1:8000/api/v1/schema/config"
-    open "http://127.0.0.1:8000/api/v1/schema/display"
-    open "http://127.0.0.1:8000/api/v1/schema/order"
-elif [ "$OS" == "CYGWIN" ] || [ "$OS" == "MINGW" ] || [ "$OS" == "MSYS" ]; then
-    start "http://127.0.0.1:8000/api/v1/schema/auth"
-    start "http://127.0.0.1:8000/api/v1/schema/cart"
-    start "http://127.0.0.1:8000/api/v1/schema/config"
-    start "http://127.0.0.1:8000/api/v1/schema/display"
-    start "http://127.0.0.1:8000/api/v1/schema/order"
-else
-    echo "Unsupported OS: $OS"
-fi
-
-kubectl get pods --watch

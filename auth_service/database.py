@@ -6,8 +6,11 @@ from sqlalchemy.orm import sessionmaker
 from users import User, Base
 from auth_utils import get_password_hash
 
+# built-in modules
+import os
+
 # Create database engine
-engine = create_engine("postgresql://postgres:postgres@localhost/auth", echo=True, future=True)
+engine = create_engine(f"postgresql://postgres:postgres@{os.getenv('PG_HOST','localhost')}/auth", echo=True, future=True)
 
 # Create session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

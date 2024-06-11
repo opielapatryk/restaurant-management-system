@@ -22,7 +22,7 @@ auth_client = AuthClient()
 
 
 # Auth
-@app.post("/login")
+@app.post("/api/v1/login")
 def login(auth_data: AuthData):
     response = auth_client.authenticate(auth_data.email, auth_data.password)
     if not response.success:
@@ -34,7 +34,7 @@ def login(auth_data: AuthData):
 
 
 # To use on the client side by catching 401 error
-@app.post("/refresh-token")
+@app.post("/api/v1/refresh-token")
 def refresh_token(token_data: TokenData):
     response = auth_client.refresh_token(token_data.token)
     if not response.success:

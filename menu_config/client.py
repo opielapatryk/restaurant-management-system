@@ -5,8 +5,11 @@ import grpc
 import auth_pb2
 import auth_pb2_grpc
 
+# built-in modules
+import os
+
 class AuthClient:
-    def __init__(self, host='localhost', port=50051):
+    def __init__(self, host=os.getenv('AUTH_GRPC','localhost'), port=50051):
         self.channel = grpc.insecure_channel(f'{host}:{port}')
         self.stub = auth_pb2_grpc.AuthServiceStub(self.channel)
 

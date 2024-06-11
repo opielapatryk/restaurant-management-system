@@ -48,19 +48,19 @@ data:
         proxy_buffering off;
 
         location /api/v1/display {
-          proxy_pass http://127.0.0.1:1027;
+          proxy_pass http://menu:1027;
         }
 
         location /api/v1/config {
-          proxy_pass http://127.0.0.1:1028;
+          proxy_pass http://menuconfig:1028;
         }
 
-        location /login {
-          proxy_pass http://127.0.0.1:1028;
+        location /api/v1/login {
+          proxy_pass http://menuconfig:1028;
         }
 
-        location /refresh-token {
-          proxy_pass http://127.0.0.1:1028;
+        location /api/v1/refresh-token {
+          proxy_pass http://menuconfig:1028;
         }
 
         error_page   500 502 503 504  /50x.html;
@@ -103,7 +103,6 @@ spec:
         app: nginx
       annotations:
         consul.hashicorp.com/connect-inject: "true"
-        consul.hashicorp.com/connect-service-upstreams: "menu:1027,menuconfig:1028"
     spec:
       serviceAccountName: nginx
       containers:

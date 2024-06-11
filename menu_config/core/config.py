@@ -1,4 +1,6 @@
+import os
+
 class Settings:
-    RABBITMQ_URL: str = "localhost"
+    RABBITMQ_URL: str = os.getenv('RABBITMQ_HOST')
 
 settings = Settings()
