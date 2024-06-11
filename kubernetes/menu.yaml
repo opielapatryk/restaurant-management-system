@@ -46,12 +46,18 @@ spec:
         service: menu
       annotations:
         consul.hashicorp.com/connect-inject: "true"
-        consul.hashicorp.com/connect-service-upstreams: "mongodb:27017,cache-redis:6379,rabbitmq:5672"
     spec:
       serviceAccountName: menu
       containers:
         - name: menu
-          image: "opielapatryk/menu_display:latest"
+          image: "opielapatryk/menu_display_eks"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 1027
+          env:
+            - name: MONGO_HOST
+              value: "mongodb"
+            - name: RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: REDIS
+              value: "cache-redis"

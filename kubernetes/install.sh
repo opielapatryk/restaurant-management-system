@@ -16,7 +16,7 @@ helm repo add hashicorp https://helm.releases.hashicorp.com
 
 helm repo update
 
-helm install --values values-v1.yaml consul hashicorp/consul --version '1.2.0'
+helm install --values values.yaml consul hashicorp/consul
 
 retry_until_success "kubectl apply -f proxy-defaults.yaml" "proxy-defaults.yaml"
 

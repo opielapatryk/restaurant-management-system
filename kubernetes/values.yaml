@@ -1,0 +1,7 @@
+global:
+  enabled: true
+  image: hashicorp/consul:1.18.0
+  datacenter: eks
+server:
+  enabled: true
+  replicas: 3
