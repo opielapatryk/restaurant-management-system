@@ -82,7 +82,7 @@ class OrderPaymentResponseLogic:
 
             # Get Customer Address information.
             async with AsyncClient() as client:
-                url = f"{root}/v1/customers/{order.customer_id}/address"
+                url = f"{root}/api/v1/customers/{order.customer_id}/address"
                 resp = await client.get(url=url, timeout=config.url_timeout)
 
             if resp.status_code != 200:
@@ -98,7 +98,7 @@ class OrderPaymentResponseLogic:
 
             # Request DeliveryService work.
             async with AsyncClient() as client:
-                url = f"{root}/v1/deliveries"
+                url = f"{root}/api/v1/deliveries"
                 resp = await client.post(timeout=config.url_timeout,
                                          data=payload.model_dump_json(),
                                          url=url, headers=config.hdr_data)
@@ -137,7 +137,7 @@ class OrderPaymentResponseLogic:
 
             # Request KitchenService work.
             async with AsyncClient() as client:
-                url = f"{root}/v1/kitchen"
+                url = f"{root}/api/v1/kitchen"
                 resp = await client.post(timeout=config.url_timeout,
                                          data=payload.model_dump_json(),
                                          url=url, headers=config.hdr_data)

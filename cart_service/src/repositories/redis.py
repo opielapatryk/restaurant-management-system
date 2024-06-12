@@ -3,11 +3,12 @@ import redis
 
 # Built-in modules
 import json
+import os
 
 class RedisRepo():
     def __init__(self):
         self.cache = redis.Redis(
-            host="127.0.0.1",
+            host=os.getenv('REDIS_HOST','localhost'),
             port="6379",
         )
 

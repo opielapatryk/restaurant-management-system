@@ -15,7 +15,7 @@ from .models import (OrderPayload, OrderResponse,
                      NotFoundError, FailedUpdateError, ConnectError)
 
 # Constants
-ROUTER = APIRouter(prefix="/v1/orders", tags=["Orders"],
+ROUTER = APIRouter(prefix="/api/v1/orders", tags=["Orders"],
                    dependencies=[Depends(validate_authentication)])
 """ Order API endpoint router. """
 

@@ -9,7 +9,8 @@ from httpx import AsyncClient, ConnectTimeout
 
 # Local modules
 from ..web.api.models import OrderResponse
-from ..core.setup import config, SSL_CONTEXT
+from ..core.setup import config
+# from ..core.setup import SSL_CONTEXT
 from ..tools.url_cache import UrlServiceCache
 from ..repository.interface import IRepository
 from .models import PaymentPayload, MetadataSchema
@@ -125,7 +126,8 @@ class OrderApiLogic:
         try:
             root = await cache.get('PaymentService')
 
-            async with AsyncClient(verify=SSL_CONTEXT) as client:
+            # async with AsyncClient(verify=SSL_CONTEXT) as client:
+            async with AsyncClient() as client:
                 url = f"{root}/v1/payments"
                 resp = await client.post(timeout=config.url_timeout,
                                          data=payload.model_dump_json(),
@@ -160,7 +162,8 @@ class OrderApiLogic:
         try:
             root = await cache.get('PaymentService')
 
-            async with AsyncClient(verify=SSL_CONTEXT) as client:
+            # async with AsyncClient(verify=SSL_CONTEXT) as client:
+            async with AsyncClient() as client:
                 url = f"{root}/v1/payments/reimburse"
                 resp = await client.post(timeout=config.url_timeout,
                                          data=payload.model_dump_json(),

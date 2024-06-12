@@ -27,7 +27,7 @@ license_info = {
 
 servers = [
     {
-        "url": "https://127.0.0.1:1030",
+        "url": "http://127.0.0.1:1030",
         "description": "URL for local development and testing"
     }
 ]

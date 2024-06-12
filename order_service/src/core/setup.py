@@ -3,7 +3,7 @@ import os
 import site
 from os import getenv
 from pathlib import Path
-from ssl import SSLContext
+# from ssl import SSLContext
 from typing import Type, Tuple
 
 # Third party modules
@@ -18,15 +18,15 @@ MISSING_SECRET = '>>> missing SECRETS file <<<'
 """ Error message for missing secrets file. """
 MISSING_ENV = '>>> missing ENV value <<<'
 """ Error message for missing values in the .env file. """
-CERT_PATH = Path(__file__).parent.parent.parent / 'certs'
+# CERT_PATH = Path(__file__).parent.parent.parent / 'certs'
 """ Local certificate path. """
 SECRETS_DIR = ('/run/secrets'
                if os.path.exists('/.dockerenv')
                else f'{site.getuserbase()}/secrets')
 """ This is where your secrets are stored (in Docker or locally). """
 # noinspection PyNoneFunctionAssignment
-SSL_CONTEXT = SSLContext().load_cert_chain(f'{CERT_PATH}/public-cert.pem',
-                                           f'{CERT_PATH}/private-key.pem')
+# SSL_CONTEXT = SSLContext().load_cert_chain(f'{CERT_PATH}/public-cert.pem',
+#                                            f'{CERT_PATH}/private-key.pem')
 """ Define the SSL context certificate chain. """
 
 
