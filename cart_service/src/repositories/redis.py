@@ -14,7 +14,7 @@ class RedisRepo():
 
     def post(self,dish,session_id):
         cart_key = f"cart:{session_id}"
-        self.cache.hset(cart_key, dish.dish_id, json.dumps(dish.dict()))
+        self.cache.hset(cart_key, dish.dish_id, dish.quantity)
 
     def delete_cart(self,session_id):
         cart_key = f"cart:{session_id}"

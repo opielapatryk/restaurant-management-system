@@ -41,3 +41,5 @@ class Engine:
     async def is_db_connected(cls) -> bool:
         """ Return MongoDB connection status. """
         return bool(cls.client.server_info())
+    
+clinet = Engine()

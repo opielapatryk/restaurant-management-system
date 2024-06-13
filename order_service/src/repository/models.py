@@ -87,7 +87,7 @@ class OrderItem(BaseModel):
     :ivar product: Ordered product.
     :ivar quantity: Product quantity.
     """
-    product: Products
+    product: str
     quantity: PositiveInt = 1
 
 

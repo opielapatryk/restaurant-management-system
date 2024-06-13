@@ -191,7 +191,7 @@ class OrderApiLogic:
         :raise HTTPException [500]: When connection with PaymentService failed.
         :raise HTTPException [400]: When create order in DB api_db.orders failed.
         """
-        await self._pay()
+        # await self._pay()
 
         # Create a new Order document in DB.
         db_order = OrderModel(**self.dict())
