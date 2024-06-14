@@ -50,7 +50,7 @@ spec:
       serviceAccountName: menu
       containers:
         - name: menu
-          image: "opielapatryk/menu_display_eks"
+          image: "opielapatryk/menu_display_eks2"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 1027

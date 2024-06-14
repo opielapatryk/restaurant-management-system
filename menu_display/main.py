@@ -19,7 +19,31 @@ def start_consumer(service: ConsumerService = ConsumerService, broker: RabbitMQC
 
 start_consumer()
 
-app = FastAPI(docs_url="/api/v1/display/docs",openapi_url="/api/v1/display/openapi.json")
+
+description = """
+The DisplayService allows customer display restaurant menu. 
+
+<br>**The following HTTP status codes are returned:**
+  * `200:` Successful GET response.
+  * `404:` Menu not found in DB.
+  * `500:` Failed to connect to internal MicroService.
+<br><br>
+---
+"""
+
+license_info = {
+    "name": "License: Apache 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+}
+
+app = FastAPI(
+        docs_url="/api/v1/display/docs",
+        openapi_url="/api/v1/display/openapi.json",
+        title="MenuService API",
+        version="1.0.0",
+        description=description,
+        license_info=license_info
+    )
 
 class EntityDoesNotExist(Exception):
     """Raised when entity was not found in database."""

@@ -17,7 +17,34 @@ import uuid
 from datetime import datetime
 
 
-app = FastAPI(docs_url="/api/v1/cart/docs",openapi_url="/api/v1/cart/openapi.json")
+description = """
+The CartService allows customer adding dishes to cart. Next cart communicates with OrderService via gRPC and produce there new order. 
+
+<br>**The following HTTP status codes are returned:**
+  * `200:` Successful GET response.
+  * `202:` Successful POST response.
+  * `204:` Successful DELETE response.
+  * `400:` Failed updating Cart in DB.
+  * `404:` Cart not found in DB.
+  * `422:` Validation error, supplied parameter(s) are incorrect.
+  * `500:` Failed to connect to internal MicroService.
+<br><br>
+---
+"""
+
+license_info = {
+    "name": "License: Apache 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+}
+
+app = FastAPI(
+        docs_url="/api/v1/cart/docs",
+        openapi_url="/api/v1/cart/openapi.json",
+        title="CartService API",
+        version="1.0.0",
+        description=description,
+        license_info=license_info,
+    )
 repo = RedisRepo()
 order_client = client.OrderClient()
 

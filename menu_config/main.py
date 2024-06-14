@@ -15,9 +15,35 @@ from domain.auth.token import TokenData
 # Third party modules
 from fastapi import FastAPI, status, HTTPException, Depends
 
+description = """
+The ConfigService allows restaurant worker for menu configuration after loggin in. Next changes are send to MenuService via message broker, RabbitMQ. 
+
+<br>**The following HTTP status codes are returned:**
+  * `200:` Successful GET response.
+  * `202:` Successful POST response.
+  * `204:` Successful DELETE response.
+  * `400:` Failed updating Menu in DB.
+  * `404:` Mneu not found in DB.
+  * `422:` Validation error, supplied parameter(s) are incorrect.
+  * `500:` Failed to connect to internal MicroService.
+<br><br>
+---
+"""
+
+license_info = {
+    "name": "License: Apache 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+}
+
 app = FastAPI(
-    docs_url="/api/v1/config/docs", openapi_url="/api/v1/config/openapi.json"
-)
+        docs_url="/api/v1/config/docs",
+        openapi_url="/api/v1/config/openapi.json",
+        title="ConfigService API",
+        version="1.0.0",
+        description=description,
+        license_info=license_info
+    )
+
 auth_client = AuthClient()
 
 

@@ -50,7 +50,7 @@ spec:
       serviceAccountName: cart
       containers:
         - name: cart
-          image: "opielapatryk/cart_service_eks2"
+          image: "opielapatryk/cart_service_eks4"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 1029
