@@ -1,10 +1,7 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
+FROM tiangolo/uvicorn-gunicorn:python3.11
 
 WORKDIR /code
-
 COPY . /code
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-RUN python -m grpc_tools.protoc -I=src/gRPC --python_out=src/gRPC --grpc_python_out=src/gRPC src/gRPC/order.proto
-
-CMD ["python", "run.py"]
+RUN python -m grpc_tools.protoc -I=/code --python_out=. --grpc_python_out=. /code/order.proto

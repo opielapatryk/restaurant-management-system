@@ -1,0 +1,63 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: cart
+  namespace: default
+spec:
+  protocol: "http"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cart
+  namespace: default
+automountServiceAccountToken: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cart
+  name: cart
+spec:
+  type: ClusterIP
+  ports:
+    - port: 1029
+      targetPort: 1029
+  selector:
+    app: cart
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart
+  namespace: default
+  labels:
+    app: cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart
+  template:
+    metadata:
+      labels:
+        app: cart
+        service: cart
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
+    spec:
+      serviceAccountName: cart
+      containers:
+        - name: cart
+          image: "opielapatryk/cart_service_eks"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 1029
+          env:
+            - name: MONGO_HOST
+              value: "menu-config-mongodb"
+            - name: RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: AUTH_GRPC
+              value: "auth"

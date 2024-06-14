@@ -2,6 +2,7 @@ from fastapi import Path
 
 # Local modules
 from ...core.setup import config
+from os import getenv
 
 order_id_documentation = Path(
     ...,
@@ -27,7 +28,7 @@ license_info = {
 
 servers = [
     {
-        "url": "http://127.0.0.1:1030",
+        "url": f"http://{getenv('API_GW')}:1030",
         "description": "URL for local development and testing"
     }
 ]

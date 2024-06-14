@@ -137,6 +137,8 @@ app = Service(
     description=description,
     license_info=license_info,
     openapi_tags=tags_metadata,
+    docs_url="/api/v1/orders/docs",  # Set custom Swagger UI URL
+    openapi_url="/api/v1/orders/openapi.json", 
     # swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"}
 )
 """ The FastAPI application instance. """

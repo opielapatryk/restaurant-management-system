@@ -110,3 +110,27 @@ spec:
  sources:
    - name: menuconfig
      action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: nginx-order
+ namespace: default
+spec:
+ destination:
+   name: order
+ sources:
+   - name: nginx
+     action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: order-mongodb
+ namespace: default
+spec:
+ destination:
+   name: order-mongodb
+ sources:
+   - name: order
+     action: allow

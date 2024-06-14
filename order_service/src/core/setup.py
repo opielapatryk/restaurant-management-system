@@ -61,9 +61,9 @@ class Configuration(BaseSettings):
 
     # External resource parameters.
     url_timeout: tuple = (1.0, 5.0)
-    service_api_key: str = MISSING_SECRET
-    mongo_url: str = Field(MISSING_SECRET, alias=f'mongo_url_{ENVIRONMENT}')
-    redis_url: str = Field(MISSING_SECRET, alias=f'redis_url_{ENVIRONMENT}')
+    service_api_key: str = getenv('SERVICE_API_KEY')
+    mongo_url: str = f"mongodb://root:mongodb@{getenv('MONGO_HOST')}:27017"
+    redis_url: str = f"redis://{getenv('REDIS_HOST')}"
     rabbit_url: str = Field(MISSING_SECRET, alias=f'rabbit_url_root_{ENVIRONMENT}')
 
     @computed_field

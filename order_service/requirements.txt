@@ -6,3 +6,7 @@ pydantic
 uvicorn 
 python-dotenv
 grpclib
+grpcio 
+grpcio-tools
+pydantic_settings
+redis
