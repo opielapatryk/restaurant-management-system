@@ -122,6 +122,8 @@ spec:
  sources:
    - name: nginx
      action: allow
+   - name: cart
+     action: allow
 ---
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
@@ -133,4 +135,42 @@ spec:
    name: order-mongodb
  sources:
    - name: order
+     action: allow
+   - name: order-grpc
+     action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: nginx-cart
+ namespace: default
+spec:
+ destination:
+   name: cart
+ sources:
+   - name: nginx
+     action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: cart-rediss
+ namespace: default
+spec:
+ destination:
+   name: cart-redis
+ sources:
+   - name: cart
+     action: allow
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+ name: cart-order-grpc
+ namespace: default
+spec:
+ destination:
+   name: order-grpc
+ sources:
+   - name: cart
      action: allow

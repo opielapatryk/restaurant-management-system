@@ -24,6 +24,7 @@ spec:
   ports:
     - port: 1030
       targetPort: 1030
+      name: order
   selector:
     app: order
 ---
@@ -50,7 +51,7 @@ spec:
       serviceAccountName: order
       containers:
         - name: order
-          image: "opielapatryk/order_service_eks6"
+          image: "opielapatryk/order_service_eks7"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 1030
@@ -70,22 +71,3 @@ spec:
           command: ["sh", "-c"]
           args:
             - "python run.py"
-        - name: grpc-server
-          image: "opielapatryk/order_service_eks6"
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: MONGO_HOST
-              value: "order-mongodb"
-            - name: REDIS_HOST
-              value: "order-redis"
-            - name: SERVICE_API_KEY
-              value: "0eeb3dba-b3a7-43ee-8b28-8d8e058e2f2c"
-            - name: REDIS_URL_DEV
-              value: "redis://localhost"
-            - name: MONGO_URL_DEV
-              value: "mongodb://root:mongodb@localhost:27017"
-            - name: API_GW
-              value: "ae112c71cbb9a401ea1982b3b0c0a226-1947998160.eu-central-1.elb.amazonaws.com"
-          command: ["sh", "-c"]
-          args:
-            - "python order_server.py"

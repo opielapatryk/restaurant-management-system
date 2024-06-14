@@ -17,7 +17,7 @@ import uuid
 from datetime import datetime
 
 
-app = FastAPI()
+app = FastAPI(docs_url="/api/v1/cart/docs",openapi_url="/api/v1/cart/openapi.json")
 repo = RedisRepo()
 order_client = client.OrderClient()
 

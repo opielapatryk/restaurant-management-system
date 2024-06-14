@@ -28,7 +28,7 @@ license_info = {
 
 servers = [
     {
-        "url": f"http://{getenv('API_GW')}:1030",
+        "url": f"http://{getenv('API_GW')}:8000",
         "description": "URL for local development and testing"
     }
 ]

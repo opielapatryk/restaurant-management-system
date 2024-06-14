@@ -1,15 +1,15 @@
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceDefaults
 metadata:
-  name: cart
+  name: order-grpc
   namespace: default
 spec:
-  protocol: "http"
+  protocol: "tcp"
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: cart
+  name: order-grpc
   namespace: default
 automountServiceAccountToken: true
 ---
@@ -17,50 +17,57 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: cart
-  name: cart
+    app: order-grpc
+  name: order-grpc
 spec:
   type: ClusterIP
   ports:
-    - port: 1029
-      targetPort: 1029
+    - protocol: TCP
+      port: 50051
+      targetPort: 50051
   selector:
-    app: cart
+    app: order-grpc
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cart
+  name: order-grpc
   namespace: default
   labels:
-    app: cart
+    app: order-grpc
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cart
+      app: order-grpc
   template:
     metadata:
       labels:
-        app: cart
-        service: cart
+        app: order-grpc
+        service: order-grpc
       annotations:
         consul.hashicorp.com/connect-inject: "true"
     spec:
-      serviceAccountName: cart
+      serviceAccountName: order-grpc
       containers:
-        - name: cart
-          image: "opielapatryk/cart_service_eks2"
+        - name: order-grpc
+          image: "opielapatryk/order_service_eks7"
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 1029
+            - containerPort: 50051
           env:
+            - name: MONGO_HOST
+              value: "order-mongodb"
             - name: REDIS_HOST
-              value: "cart-redis"
+              value: "order-redis"
+            - name: SERVICE_API_KEY
+              value: "0eeb3dba-b3a7-43ee-8b28-8d8e058e2f2c"
+            - name: REDIS_URL_DEV
+              value: "redis://localhost"
+            - name: MONGO_URL_DEV
+              value: "mongodb://root:mongodb@localhost:27017"
             - name: API_GW
               value: "ae112c71cbb9a401ea1982b3b0c0a226-1947998160.eu-central-1.elb.amazonaws.com"
-            - name: ORDER_GRPC
-              value: "order-grpc"
           command: ["sh", "-c"]
           args:
-            - "python run.py"
+            - "python order_server.py"

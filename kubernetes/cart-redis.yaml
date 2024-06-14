@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart-redis
+  namespace: default
+  labels:
+    app: cart-redis
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: cart-redis
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: cart-redis
+  namespace: default
+spec:
+  protocol: "tcp"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cart-redis
+  namespace: default
+automountServiceAccountToken: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-redis
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: cart-redis
+      app: cart-redis
+  template:
+    metadata:
+      labels:
+        service: cart-redis
+        app: cart-redis
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
+    spec:
+      serviceAccountName: cart-redis
+      containers:
+        - name: cart-redis
+          image: redis:alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: "/var/lib/redis/data"
+              name: "redis-data"
+      volumes:
+        - name: redis-data
+          emptyDir: {}
