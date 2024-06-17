@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 
 class MongoRepo:
     def __init__(self, json_file_name='example_menu.json'):
-        client = pymongo.MongoClient(f"mongodb://root:mongodb@{os.getenv('MONGO_HOST')}:27017")
+        client = pymongo.MongoClient(f"mongodb://root:mongodb@{os.getenv('MONGO_HOST','localhost')}:27017")
 
         self.db = client['menu_display']
         self.collection = self.db.menu
