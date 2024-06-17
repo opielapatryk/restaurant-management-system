@@ -1,4 +1,9 @@
 ![Container Diagram](./container.png)
+
+
+https://github.com/opielapatryk/restaurant-management-system/assets/104018084/dbb944c0-71a2-469e-9c6f-ecbfbd6f7ebb
+
+
 # Restaurant Management System
 To run project you need running kubernetes i.e. on Docker Desktop.<br>
 Instruction for installation is located in kubernetes/readme.md<br>
